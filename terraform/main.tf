@@ -1,4 +1,6 @@
 terraform {
+  required_version = "~> 0.14"
+
   required_providers {
     google = {
       source = "hashicorp/google"
@@ -15,10 +17,11 @@ provider "google" {
 }
 
 resource "google_container_cluster" "primary" {
-  name       = "multi-zonal-cluster"
-  location   = "europe-west3-a" //master|control plane in europe-west3-a
-  network    = "default"
-  subnetwork = "default"
+  name               = "multi-zonal-cluster"
+  location           = "europe-west3-a" //master|control plane in europe-west3-a
+  min_master_version = var.master_ver
+  network            = "default"
+  subnetwork         = "default"
   
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
