@@ -27,8 +27,8 @@ resource "google_compute_network" "vpc_gke" {
 }
 
 resource "google_container_cluster" "primary" {
-  name     = "gke-cluster"
-  location = "europe-west3"
+  name       = "gke-cluster"
+  location   = "europe-west3"
   network    = "gke-network"
   subnetwork = "gke-subnetwork"
   
