@@ -6,3 +6,9 @@
 ## Requirements 
 * terraform v0.14 
 * gcloud 
+
+## Inicialize terraform project
+
+1. cd gcp-k8s-cd/terraform && terraform init 
+2. terraform plan 
+3. terraform apply 
