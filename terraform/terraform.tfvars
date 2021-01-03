@@ -1,2 +1,2 @@
-project          = "civil-song-271005"
-credentials_file = "/mnt/c/Users/Tomas/Desktop/credence.json"
+project          = "gke-test-300600"
+credentials_file = "../secrets/gke-test-5dfb1f566e5f.json"
