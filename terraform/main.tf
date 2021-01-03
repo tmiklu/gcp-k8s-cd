@@ -14,29 +14,23 @@ provider "google" {
   project = var.project
 }
 
-resource "google_compute_subnetwork" "vpc_gke" {
-  name          = "gke-subnetwork"
-  ip_cidr_range = "10.2.0.0/16"
-  region        = "europe-west3"
-  network       = google_compute_network.vpc_gke.name
-}
-
-resource "google_compute_network" "vpc_gke" {
-  name                    = "gke-network"
-  auto_create_subnetworks = false
-}
-
 resource "google_container_cluster" "primary" {
-  name       = "gke-cluster"
-  location   = "europe-west3"
-  network    = "gke-network"
-  subnetwork = "gke-subnetwork"
+  name       = "multi-zonal-cluster"
+  location   = "europe-west3-a" //master|control plane in europe-west3-a
+  network    = "default"
+  subnetwork = "default"
   
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
   # node pool and immediately delete it.
   remove_default_node_pool = true
   initial_node_count       = 1
+
+  // creates three worker nodes, "a" is not required because is specified in location
+  node_locations = [
+    "europe-west3-b",
+    "europe-west3-c",
+  ]
 
   master_auth {
     username = ""
@@ -49,9 +43,9 @@ resource "google_container_cluster" "primary" {
   }
 }
 
-resource "google_container_node_pool" "primary_preemptible_nodes" {
+resource "google_container_node_pool" "nodes" {
   name       = "my-node-pool"
-  location   = "europe-west3"
+  location   = "europe-west3-a"
   cluster    = google_container_cluster.primary.name
   node_count = 1
 
@@ -59,18 +53,14 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
     auto_upgrade = false
   }
 
-  autoscaling {
-    min_node_count = 3
-    max_node_count = 5
-  }
-
-  //node_locations = [
-  //  "europe-west3-c",
-  //]
+  //autoscaling {
+  //  min_node_count = 3
+  //  max_node_count = 5
+  //}
 
   node_config {
     preemptible  = true
-    machine_type = "e2-small"
+    machine_type = "e2-medium"
 
     metadata = {
       disable-legacy-endpoints = "true"
