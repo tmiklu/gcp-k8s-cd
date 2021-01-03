@@ -1,0 +1,15 @@
+steps:
+# build the binaries
+- name: 'gcr.io/cloud-builders/go'
+  args: ['build', '-o', 'hello', 'src/main.go']
+
+# build the container image, tag it and push it to the Google Container Registry of our project
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', 
+      '-t', 'gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME-$SHORT_SHA',
+      '-t', 'gcr.io/$PROJECT_ID/$REPO_NAME:latest',
+      '-f', 'Dockerfile', '.']
+
+images:
+- 'gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME-$SHORT_SHA'
+- 'gcr.io/$PROJECT_ID/$REPO_NAME:latest'

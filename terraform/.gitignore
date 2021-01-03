@@ -1,0 +1,10 @@
+# Terraform backup
+*.tfstate.backup
+
+# terraform init
+.terraform.lock.hcl
+.terraform
+
+# tfstate
+terraform.tfstate
+.terraform.tfstate.lock.info
