@@ -60,7 +60,7 @@ resource "google_container_node_pool" "nodes" {
 
   node_config {
     preemptible  = true
-    machine_type = "e2-medium"
+    machine_type = "e2-small"
 
     metadata = {
       disable-legacy-endpoints = "true"
