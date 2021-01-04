@@ -19,9 +19,14 @@ provider "google" {
 resource "google_container_cluster" "primary" {
   name               = "multi-zonal-cluster"
   location           = "europe-west3-a" //master|control plane in europe-west3-a
-  min_master_version = var.master_ver
   network            = "default"
   subnetwork         = "default"
+
+  min_master_version = var.master_ver
+
+  release_channel {
+    channel = var.channel
+  }
   
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
@@ -51,9 +56,11 @@ resource "google_container_node_pool" "nodes" {
   location   = "europe-west3-a"
   cluster    = google_container_cluster.primary.name
   node_count = 1
-
+  
+  // required for RAPID release channel
   management {
-    auto_upgrade = false
+    auto_upgrade = true
+    auto_repair  = true
   }
 
   //autoscaling {

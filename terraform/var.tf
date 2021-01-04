@@ -5,6 +5,11 @@ variable "project" {
 variable "credentials_file" { }
 
 variable "master_ver" {
-  type = string
-  default = "1.17.14-gke.1600"
+  type    = string
+  default = "1.18.12-gke.1201"
+}
+
+variable "channel" {
+  type    = string
+  default = "RAPID"
 }
