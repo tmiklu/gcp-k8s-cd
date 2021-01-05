@@ -49,6 +49,7 @@ resource "google_container_cluster" "primary" {
     }
 
   }
+
 }
 
 resource "google_container_node_pool" "nodes" {
@@ -56,6 +57,7 @@ resource "google_container_node_pool" "nodes" {
   location   = "europe-west3-a"
   cluster    = google_container_cluster.primary.name
   node_count = 1
+
   
   // required for RAPID release channel
   management {
