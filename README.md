@@ -6,6 +6,7 @@
 ## Requirements 
 * terraform v0.14 
 * gcloud 
+* kubectl >= 1.18
 
 ## Inicialize terraform project
 
