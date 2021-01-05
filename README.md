@@ -13,3 +13,6 @@
 1. cd gcp-k8s-cd/terraform && terraform init 
 2. terraform plan 
 3. terraform apply 
+
+## Interact 
+1. gcloud container clusters get-credentials multi-zonal-cluster --zone europe-west3-a 
