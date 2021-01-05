@@ -14,5 +14,5 @@
 2. terraform plan 
 3. terraform apply 
 
-## Interact 
+## Interact with GKE 
 1. gcloud container clusters get-credentials multi-zonal-cluster --zone europe-west3-a 
