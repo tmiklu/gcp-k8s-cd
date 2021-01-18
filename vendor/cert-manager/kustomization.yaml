@@ -2,6 +2,6 @@ namespace: cert-manager
 resources:
 - ./cert-manager-1.0.4.yaml
 - ./certificate.yaml
-- ./cert-issuer-nginx-ingress.yaml
+- ./cert-issuer.yaml
 #- ./service.yaml
 #- ./deployment.yaml
